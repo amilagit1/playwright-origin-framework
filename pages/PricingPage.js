@@ -14,11 +14,18 @@ class PricingPage {
     this.electricityCheckbox = page.locator(FIELDS.electricityCheckbox);
   }
 
-  async open(url) {
-    await this.page.goto(url);
-  }
+async open(url) {
+  await this.page.goto(url, {
+    waitUntil: 'domcontentloaded',
+    timeout: 60000
+  });
+
+  await this.page.waitForLoadState('networkidle');
+}
 
 async searchAddress(address) {
+
+  await this.addressInput.waitFor({ state: 'visible' });
   await this.addressInput.fill(address);
   await this.page.locator('[role="listbox"] >> [role="option"]').first().waitFor({
     state: 'visible'
