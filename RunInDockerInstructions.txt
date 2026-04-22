@@ -1,0 +1,63 @@
+🐳 Run This Playwright Framework in Docker
+
+📌 Prerequisites
+
+Before running this project, ensure you have:
+
+Docker installed → https://www.docker.com/products/docker-desktop
+Git installed
+Internet connection
+
+1. Clone the repository
+git clone https://github.com/YOUR_USERNAME/playwright-origin-framework.git
+cd playwright-origin-framework
+
+🐳 2. Build Docker image
+docker build -t playwright-origin-tests .
+
+▶️ 3. Run the tests inside Docker
+docker run --rm playwright-origin-tests
+
+👉 This will:
+
+Install dependencies (inside container)
+Run all Playwright tests
+Print results in terminal
+
+4. View HTML test report (optional)
+
+Run tests and save report locally:
+docker run --rm \
+  -v $(pwd)/playwright-report:/app/playwright-report \
+  playwright-origin-tests
+
+Then open report:
+npx playwright show-report
+
+🧪 5. Run a specific test (optional)
+docker run --rm playwright-origin-tests npx playwright test tests/gasPlan.spec.js
+
+🐛 6. Debug mode (if needed)
+Open container shell:
+docker run -it playwright-origin-tests bash
+Then run:
+npx playwright test --headed
+
+📁 Expected Project Structure
+pages/
+tests/
+test-data/
+playwright.config.js
+Dockerfile
+.dockerignore
+package.json
+
+⚙️ What this framework validates
+Opens Origin Energy pricing page
+Searches address
+Selects Gas plan
+Opens PDF
+Validates PDF content (Fuel type = Gas, Origin Basic)
+
+🎯 One-line execution
+docker build -t tests . && docker run --rm tests
